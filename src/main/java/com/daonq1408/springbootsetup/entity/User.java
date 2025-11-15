@@ -24,6 +24,7 @@ public class User implements UserDetails {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "mail", length = 75, nullable = false, unique = true)
@@ -52,5 +53,29 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return this.mail;
+    }
+
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
