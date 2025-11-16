@@ -43,6 +43,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

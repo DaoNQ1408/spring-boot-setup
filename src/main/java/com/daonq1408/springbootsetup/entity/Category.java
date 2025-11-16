@@ -27,4 +27,7 @@ public class Category {
 
     @Column(name = "code", length = 20, nullable = false, unique = true)
     private String code;
+
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 }

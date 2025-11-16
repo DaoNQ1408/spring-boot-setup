@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class EntityNotFoundExceptionHandler {
+public class EntityNotFoundHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ApiResponse<Void>> handleEntityNotFoundException(EntityNotFoundException e) {

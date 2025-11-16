@@ -22,7 +22,13 @@ public class Brand {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
+    @Column(length = 20, nullable = false)
+    private String brandCode;
+
     @Column(name = "description")
     private String description;
 
+    @Column(name = "is_deleted")
+    @Builder.Default
+    private Boolean isDeleted = false;
 }
