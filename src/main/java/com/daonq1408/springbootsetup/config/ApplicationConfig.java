@@ -1,7 +1,5 @@
 package com.daonq1408.springbootsetup.config;
 
-import com.daonq1408.springbootsetup.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.daonq1408.springbootsetup.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
@@ -19,13 +19,11 @@ public class ApplicationConfig {
 
     private final UserRepository userRepository;
 
-
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userRepository.findByMail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
+        return username -> userRepository.findByMail(username).orElseThrow(
+                () -> new UsernameNotFoundException("User not found with email: " + username));
     }
-
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -38,15 +36,14 @@ public class ApplicationConfig {
         return authProvider;
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
+            throws Exception {
         return config.getAuthenticationManager();
     }
 }

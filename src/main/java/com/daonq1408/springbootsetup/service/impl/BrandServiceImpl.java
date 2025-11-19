@@ -1,5 +1,11 @@
 package com.daonq1408.springbootsetup.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.daonq1408.springbootsetup.dto.request.v1.BrandRequest;
 import com.daonq1408.springbootsetup.dto.response.v1.BrandResponse;
 import com.daonq1408.springbootsetup.entity.Brand;
@@ -9,12 +15,6 @@ import com.daonq1408.springbootsetup.repository.BrandRepository;
 import com.daonq1408.springbootsetup.service.inter.BrandService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -27,24 +27,21 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand getBrandById(long brandId) {
-        return brandRepository.findByIdAndIsDeletedFalse(brandId)
-                .orElseThrow(() -> new EntityNotFoundException("Brand not found with id: " + brandId));
+        return brandRepository.findByIdAndIsDeletedFalse(brandId).orElseThrow(
+                () -> new EntityNotFoundException("Brand not found with id: " + brandId));
     }
 
 
     @Override
     public BrandResponse getBrandResponseById(long brandId) {
-        return brandRepository.findById(brandId)
-                .map(brandMapper::toResponse)
-                .orElseThrow(() -> new EntityNotFoundException("Brand not found with id: " + brandId));
+        return brandRepository.findById(brandId).map(brandMapper::toResponse).orElseThrow(
+                () -> new EntityNotFoundException("Brand not found with id: " + brandId));
     }
 
 
     @Override
     public List<BrandResponse> getAll() {
-        return brandRepository.findAllByIsDeletedFalse()
-                .stream()
-                .map(brandMapper::toResponse)
+        return brandRepository.findAllByIsDeletedFalse().stream().map(brandMapper::toResponse)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -100,7 +97,8 @@ public class BrandServiceImpl implements BrandService {
         if (brandIdToExclude == null) {
             exists = brandRepository.existsByBrandCodeAndIsDeletedFalse(brandCode);
         } else {
-            exists = brandRepository.existsByBrandCodeAndIdNotAndIsDeletedFalse(brandCode, brandIdToExclude);
+            exists = brandRepository.existsByBrandCodeAndIdNotAndIsDeletedFalse(brandCode,
+                    brandIdToExclude);
         }
 
         if (exists) {

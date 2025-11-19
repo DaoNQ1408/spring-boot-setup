@@ -1,8 +1,8 @@
 package com.daonq1408.springbootsetup;
 
-import com.daonq1408.springbootsetup.config.DotEnvConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.daonq1408.springbootsetup.config.DotEnvConfig;
 
 @SpringBootApplication
 public class SpringBootSetupApplication {

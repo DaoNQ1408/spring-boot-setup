@@ -1,20 +1,20 @@
 package com.daonq1408.springbootsetup.service.impl;
 
+import java.security.Key;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 import com.daonq1408.springbootsetup.service.inter.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
-
-import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
 
 @Service
 public class JwtServiceImpl implements JwtService {
@@ -45,13 +45,10 @@ public class JwtServiceImpl implements JwtService {
 
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return Jwts.builder()
-                .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername()) // Set Email vào Subject
+        return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_IN_MILI)) // Hết hạn sau 24h
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-                .compact();
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_IN_MILI))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256).compact();
     }
 
 
@@ -73,12 +70,7 @@ public class JwtServiceImpl implements JwtService {
 
 
     private Claims extractAllClaims(String token) {
-        return Jwts
-                .parser()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        return Jwts.parser().setSigningKey(getSignInKey()).build().parseClaimsJws(token).getBody();
     }
 
 

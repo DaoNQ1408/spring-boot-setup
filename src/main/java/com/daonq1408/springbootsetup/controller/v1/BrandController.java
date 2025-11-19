@@ -1,5 +1,18 @@
 package com.daonq1408.springbootsetup.controller.v1;
 
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import com.daonq1408.springbootsetup.dto.api.ApiResponse;
 import com.daonq1408.springbootsetup.dto.request.v1.BrandRequest;
 import com.daonq1408.springbootsetup.dto.response.v1.BrandResponse;
@@ -7,11 +20,6 @@ import com.daonq1408.springbootsetup.service.inter.BrandService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/brands")
